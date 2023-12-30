@@ -5,6 +5,8 @@ app.use(express.json())
 app.use(cors())
 const port = 3000
 
+
+
 const config = require('config')
 const dbConfig = config.get('dbURI')
 
