@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.login-card {
+    @apply bg-primary-200 bg-opacity-20 shadow-sm backdrop-blur-lg border border-opacity-75 border-primary-200 rounded-lg
+}
+
+  
+  
