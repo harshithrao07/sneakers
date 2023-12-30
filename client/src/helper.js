@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export async function getSneakers(id) {
-    let apiCall = id ? `http://localhost:3000/api/sneakers/${id}` : "http://localhost:3000/api/sneakers"
+    let apiCall = id ? `https://sneakers-mauve.vercel.app/api/sneakers/${id}` : "https://sneakers-mauve.vercel.app/api/sneakers"
     try {
         let sneakersData = await axios.get(apiCall)
         return sneakersData.data
@@ -14,7 +14,7 @@ export async function login(formData) {
     const email = formData.get("email")
     const password = formData.get("password")
     try {
-        const res = await axios.post("http://localhost:3000/api/login", { email: email, password: password })
+        const res = await axios.post("https://sneakers-mauve.vercel.app/api/login", { email: email, password: password })
         localStorage.setItem("token", res.data.token)
         return res
     } catch (error) {
@@ -27,7 +27,7 @@ export async function signup(formData) {
     const email = formData.get("email")
     const password = formData.get("password")
     try {
-        const res = await axios.post("http://localhost:3000/api/register", { name: name, email: email, password: password })
+        const res = await axios.post("https://sneakers-mauve.vercel.app/api/register", { name: name, email: email, password: password })
         localStorage.setItem("token", res.data.token)
         return res
     } catch (error) {
@@ -40,7 +40,7 @@ export async function get_user() {
         if (localStorage.getItem("token") == null) {
             return null
         }
-        const res = await axios.get("http://localhost:3000/api/user", { headers: { 'x-access-token': localStorage.getItem('token') } })
+        const res = await axios.get("https://sneakers-mauve.vercel.app/api/user", { headers: { 'x-access-token': localStorage.getItem('token') } })
         return res
     } catch (error) {
         throw error
@@ -49,7 +49,7 @@ export async function get_user() {
 
 export async function addingCart(user_id, items, bill) {
     try {
-        const res = await axios.post("http://localhost:3000/api/cart", {id:user_id, items: items, bill: bill})
+        const res = await axios.post("https://sneakers-mauve.vercel.app/api/cart", {id:user_id, items: items, bill: bill})
         return res
     } catch (error) {
         throw error
@@ -58,7 +58,7 @@ export async function addingCart(user_id, items, bill) {
 
 export async function getCart(id) {
     try {
-        const res = await axios.get(`http://localhost:3000/api/cart/${id}`)
+        const res = await axios.get(`https://sneakers-mauve.vercel.app/api/cart/${id}`)
         return res
     } catch (error) {
         throw error
@@ -67,7 +67,7 @@ export async function getCart(id) {
 
 export async function removeItems(id, userId) {
     try {
-        const res = await axios.post('http://localhost:3000/api/cart-remove', {productId: id, userId: userId})
+        const res = await axios.post('https://sneakers-mauve.vercel.app/api/cart-remove', {productId: id, userId: userId})
         return res
     } catch(error) {
         throw error
@@ -76,7 +76,7 @@ export async function removeItems(id, userId) {
 
 export async function updateCartQuanity(userId, productId, newQuantity) {
     try {
-        const res = await axios.post("http://localhost:3000/api/cart-update", {userId: userId, productId: productId, quantity: newQuantity})
+        const res = await axios.post("https://sneakers-mauve.vercel.app/api/cart-update", {userId: userId, productId: productId, quantity: newQuantity})
         return res
     } catch( error) {
         throw error
@@ -85,7 +85,7 @@ export async function updateCartQuanity(userId, productId, newQuantity) {
 
 export async function initializePayment(carts) {
     try {
-        const res = await axios.post("http://localhost:3000/create-checkout-session", {carts: carts})
+        const res = await axios.post("https://sneakers-mauve.vercel.app/create-checkout-session", {carts: carts})
         return res
     } catch (error) {
         throw error
@@ -94,7 +94,7 @@ export async function initializePayment(carts) {
 
 export async function createOrder(userId) {
     try {
-        const res = await axios.post("http://localhost:3000/api/create-order", {userId: userId})
+        const res = await axios.post("https://sneakers-mauve.vercel.app/api/create-order", {userId: userId})
         return res
     } catch(error) {
         throw error
@@ -103,7 +103,7 @@ export async function createOrder(userId) {
 
 export async function getOrderList(id) {
     try {
-        const res = await axios.get(`http://localhost:3000/api/order/${id}`)
+        const res = await axios.get(`https://sneakers-mauve.vercel.app/api/order/${id}`)
         return res.data
     } catch(error) {
         throw error
