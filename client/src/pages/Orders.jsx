@@ -19,7 +19,7 @@ export default function Orders() {
         if (orders) {
             orders = orders.order.reverse()
             return orders.map((order, index) => {
-                const date_added = new Date(order.date_added).toUTCString()
+                const date_added = new Date(order.date_added).toLocaleString()
                 let items = order.items
                 let total = items.reduce((acc, item) => acc + item.quantity * item.price, 0);
 
