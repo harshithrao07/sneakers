@@ -15,18 +15,18 @@ import Orders, { loader as ordersLoader } from "./pages/Orders";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <>
-      <Route element={<Layout />}>
-      <Route path="/" element={<Home />} />
+      <Route element={<Layout />} errorElement={<FetchError />}>
+      <Route path="/" element={<Home />} errorElement={<FetchError />} />
       <Route path="sneakers" element={<Sneakers />} loader={sneakersLoader} errorElement={<FetchError />} />
       <Route path="sneakers/:id" element={<SneakerDetails />} loader={sneakerDetailsLoader} errorElement={<FetchError />} />
       <Route path="login" element={<Login />} action={loginAction} loader={loginLoader} errorElement={<FetchError />} />
       <Route path="signup" element={<Signup />} action={signupAction} errorElement={<FetchError />} />
-      <Route path="user/:id" element={<UserNavbar />} loader={userNavbarLoader}>
-        <Route index element={<Users />} loader={userLoader} />
-        <Route path="orders" element={<Orders />} loader={ordersLoader} />
+      <Route path="user/:id" element={<UserNavbar />} loader={userNavbarLoader} errorElement={<FetchError />}>
+        <Route index element={<Users />} loader={userLoader} errorElement={<FetchError />} />
+        <Route path="orders" element={<Orders />} loader={ordersLoader} errorElement={<FetchError />} />
       </Route>
-      <Route path="success/:id" element={<Success />} loader={successLoader} />
-      <Route path="*" element={<RouteError />} />
+      <Route path="success/:id" element={<Success />} loader={successLoader} errorElement={<FetchError />} />
+      <Route path="*" element={<RouteError />} errorElement={<FetchError />} />
     </Route>
   </>
 ))

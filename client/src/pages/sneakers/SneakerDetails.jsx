@@ -6,7 +6,8 @@ import {
     Dialog,
     DialogBody,
     DialogFooter,
-    Breadcrumbs
+    Breadcrumbs,
+    Spinner
 } from "@material-tailwind/react";
 
 export function loader({ params }) {
@@ -21,10 +22,13 @@ export default function SneakerDetails() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [quantity, setQuantity] = useState(1)
     const [message, setMessage] = useState("")
-    const [open, setOpen] = React.useState(false);
+    const [isAdding, setAdding] = useState(false)
+    const [open, setOpen] = useState(false);
 
-    const handleOpen = () => setOpen(!open);
-
+    const handleOpen = () => {
+        setOpen(!open)
+        setAdding(false)
+    }
     function decrementQuantity() {
         if (quantity > 1) {
             setQuantity(prevQuantity => prevQuantity - 1)
@@ -38,6 +42,7 @@ export default function SneakerDetails() {
 
     const renderSneakerDataComponent = (sneakerData) => {
         async function addToCart() {
+            setAdding(true)
             const user = await get_user()
             if (user === null) {
                 return navigate(`/login?message=You have to log in first&redirectTo=${location.pathname}`)
@@ -104,10 +109,9 @@ export default function SneakerDetails() {
                                 </svg>
                             </div>
                             <button onClick={addToCart} className="flex md:px-7 lg:px-0 mt-5 lg:mt-0 p-2 lg:p-0 justify-center w-full md:w-fit lg:w-full rounded-md h-full lg:ml-7 bg-primary-200 text-white font-bold text-sm items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
+                                <span>{isAdding ? <div className="flex">Adding to cart<Spinner className="h-6 w-6 ml-2" color="amber" /></div> : <div className="flex">                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                                </svg>
-                                <span>Add to cart</span>
+                                </svg>Add to cart</div>}</span>
                             </button>
                         </div>
                     </div>

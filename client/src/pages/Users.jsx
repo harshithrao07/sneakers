@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { getCart, get_user, initializePayment, removeItems, updateCartQuanity } from "../helper";
 import { Link, redirect, useLoaderData, useLocation, useOutletContext } from "react-router-dom";
-import { Button } from "@material-tailwind/react";
+import { Button, Dialog, DialogBody, DialogFooter } from "@material-tailwind/react";
 
 export async function loader() {
     const user = await get_user()
@@ -19,6 +19,17 @@ export default function Users() {
     const locations = useLocation()
     const initialQuantities = {};
     const [carts, setCarts] = useState(cartsData.data)
+    const [open, setOpen] = useState(false);
+    const [itemToDelete, setItemToDelete] = useState(0)
+
+    const handleOpen = (id, command) => {
+        if(command == null) setItemToDelete(id)
+        if (command == "delete") {
+            deleteItem(itemToDelete)
+            setItemToDelete(0)
+        }
+        setOpen(!open)
+    }
 
     if (cartsData.data) {
         cartsData.data.forEach((cart) => {
@@ -71,7 +82,7 @@ export default function Users() {
                     <span className="text-md md:text-xl">${cart.items[0].price}</span>
                 </div>
                 <div className="ml-auto flex flex-col justify-center p-2 w-1/4">
-                    <div onClick={() => deleteItem(cart.items[0].productId)} className="mb-4 md:mb-5 ml-auto p-2 rounded-xl bg-white hover:border border-primary-200 group">
+                    <div onClick={() => handleOpen(cart.items[0].productId, null)} className="mb-4 md:mb-5 ml-auto p-2 rounded-xl bg-white hover:border border-primary-200 group">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 md:w-6 md:h-6 group-hover:text-primary-200 group-hover:cursor-pointer">
                             <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                         </svg>
@@ -134,6 +145,25 @@ export default function Users() {
                         </div>
                     </div>
                 }
+
+                <Dialog open={open} handler={handleOpen}>
+                    <DialogBody>
+                        Are you sure you want to delete this item?
+                    </DialogBody>
+                    <DialogFooter>
+                        <Button
+                            variant="text"
+                            color="red"
+                            onClick={() => setOpen(false)}
+                            className="mr-1"
+                        >
+                            <span>Cancel</span>
+                        </Button>
+                        <Button variant="gradient" color="orange" onClick={() => handleOpen(null, "delete")}>
+                            <span>Delete</span>
+                        </Button>
+                    </DialogFooter>
+                </Dialog>
             </div>
         </div>
     )
