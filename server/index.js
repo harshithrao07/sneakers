@@ -47,8 +47,8 @@ app.post('/create-checkout-session', async (req, res) => {
       },
       client_reference_id: carts[0].userId,
       mode: 'payment',
-      success_url: `http://localhost:5173/success/${carts[0].userId}`,
-      cancel_url: `http://localhost:5173/user/${carts[0].userId}`,
+      success_url: `https://sneakers-server.vercel.app/success/${carts[0].userId}`,
+      cancel_url: `https://sneakers-server.vercel.app/user/${carts[0].userId}`,
     });
   
     return res.json({url: session.url});

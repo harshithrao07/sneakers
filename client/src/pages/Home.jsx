@@ -90,8 +90,8 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-            <div ref={containerRef} className="snap-start snap-always grid md:grid-cols-2 grid-rows-3 md:grid-rows-1 h-screen">
-                <div className="text-sm row-span-2 text-center md:text-left lg:text-xl px-5 md:px-10 flex flex-col justify-end md:justify-center items-center md:items-start leading-7 mb-7 lg:leading-9 lg:pl-20">
+            <div ref={containerRef} className="snap-start snap-always grid md:grid-cols-2 grid-rows-2 md:grid-rows-1 h-screen">
+                <div className="text-sm row-span-1 text-center md:text-left lg:text-xl px-5 md:px-10 flex flex-col justify-end md:justify-center items-center md:items-start leading-5 md:mb-7 lg:leading-9 lg:pl-20">
                     <span className="text-xl md:text-3xl font-bold md:mb-4 uppercase text-center md:text-left">The <span className="text-primary-200">Sneakers</span> Company</span>
                     <span>
                         Get ready to dive into the fascinating world of sneakers. From the latest trends to classic styles, we've got you covered. Whether you're an avid collector or just looking for a comfortable pair of shoes, we'll help you choose the best sneakers for your needs.
