@@ -16,7 +16,8 @@ export async function action({request}) {
         localStorage.setItem("loggedIn", true)
         return redirect(pathname)
     } catch(error) {
-        return error.message
+        const errorMessage = error.error || "Enter the correct email and password";
+        return new Response(errorMessage, { status: 400 });
     }
 }
 
