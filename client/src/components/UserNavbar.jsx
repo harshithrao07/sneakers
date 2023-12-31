@@ -3,30 +3,30 @@ import { NavLink, Outlet, redirect, useLoaderData } from "react-router-dom";
 import { getCart, get_user } from "../helper";
 
 export async function loader() {
-    const user = await get_user()
+    let user = await get_user()
     if (user == null) {
         return redirect("/login?message=You have to log in!!")
     }
-    const carts = await getCart(user.data.user._id)
-    return { user, carts }
+    user = user.data.user
+    let cartsData = await getCart(user._id)
+    cartsData = cartsData.data
+    return { user, cartsData }
 }
 
 export default function UserNavbar() {
     const [total, setTotal] = useState(0)
     const [toggle, setToggle] = useState(false)
-    let { user, carts } = useLoaderData()
-    const userId = user.data.user._id
-    carts = carts.data
+    let { user, cartsData } = useLoaderData()
 
     useEffect(() => {
-        if (carts) totalBill();
+        if (cartsData) totalBill();
     }, [toggle]);
 
     async function totalBill() {
         let total = 0
-        const carts = await getCart(userId)
-        if(carts.data) {
-            carts.data.map(cart => total += cart.bill)
+        const cartsData = await getCart(user._id)
+        if(cartsData.data) {
+            cartsData.data.map(cart => total += cart.bill)
             setTotal(total)
         } else {
             setTotal(0)
@@ -36,7 +36,7 @@ export default function UserNavbar() {
     return (
         <div className="mt-12 lg:mt-16 font-body">
             <div className="flex flex-col py-5 bg-orange-100 bg-opacity-50 px-5 lg:px-16">
-                <span className="text-2xl md:text-4xl font-bold pb-1">Heyy, <span className="text-primary-200 border-b-2 border-primary-200">{user.data.user.name.charAt(0).toUpperCase() + user.data.user.name.slice(1)}</span> !</span>
+                <span className="text-2xl md:text-4xl font-bold pb-1">Heyy, <span className="text-primary-200 border-b-2 border-primary-200">{user.name.charAt(0).toUpperCase() + user.name.slice(1)}</span> !</span>
                 <span className="text-md md:text-lg mt-1 md:mt-3 pb-1">Total cost of items in your cart is: <span className="text-primary-200 font-bold border-b-2 text-xl md:text-2xl border-primary-200">${total}</span></span>
             </div>
             <nav className="px-16 font-body text-lg my-5 text-gray-500 flex justify-center md:justify-start">
