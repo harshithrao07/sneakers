@@ -62,7 +62,7 @@ module.exports.login = (req, res) => {
 
                     jwt.sign(
                         {id: user._id},
-                        config.get('jwtSecret'),
+                        process.env.jwtSecret,
                         {expiresIn: 3600},
                         (err, token) => {
                             if(err) throw err
