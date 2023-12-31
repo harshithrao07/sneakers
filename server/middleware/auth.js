@@ -1,4 +1,4 @@
-const config = require('config')
+require('dotenv').config()
 const jwt = require('jsonwebtoken')
 
 function auth(req, res, next) {
@@ -9,7 +9,7 @@ function auth(req, res, next) {
     }
 
     try {
-        const decoded = jwt.verify(token, config.get('jwtSecret'))
+        const decoded = jwt.verify(token, process.env.jwtSecret)
         req.user = decoded
         next()
     } catch(error) {

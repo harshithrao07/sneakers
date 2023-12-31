@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const app = express()
@@ -5,11 +6,7 @@ app.use(express.json())
 app.use(cors())
 const port = 3000
 
-
-
-const config = require('config')
-const dbConfig = config.get('dbURI')
-
+const dbConfig = process.env.dbURI
 const mongoose = require('mongoose')
 
 mongoose.connect(dbConfig)
@@ -26,8 +23,7 @@ app.use('/api', itemRoutes)
 app.use('/api', cartRoutes)
 app.use('/api', orderRoutes)
 
-const STRIPE_SECRET_KEY = config.get("STRIPE_SECRET_KEY")
-const STRIPE_PUBLISHABLE_KEY = config.get("STRIPE_PUBLISHABLE_KEY")
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
 const stripe = require('stripe')(STRIPE_SECRET_KEY)
 
 app.post('/create-checkout-session', async (req, res) => {

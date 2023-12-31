@@ -1,7 +1,7 @@
+require('dotenv').config()
 const User = require('../models/users')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-const config = require('config')
 
 module.exports.signup = (req, res) => {
     const { name, email, password } = req.body
@@ -24,7 +24,7 @@ module.exports.signup = (req, res) => {
                         .then(user => {
                             jwt.sign(
                                 {id: user._id},
-                                config.get('jwtSecret'),
+                                process.env.jwtSecret,
                                 {expiresIn: 3600},
                                 (err, token) => {
                                     if(err) throw err
