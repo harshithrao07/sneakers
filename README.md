@@ -1,10 +1,10 @@
 
 # SNEAKERS
 
-Get ready to dive into the fascinating world of sneakers. From the latest trends to classic styles, we've got you covered. Whether you're an avid collector or just looking for a comfortable pair of shoes, we'll help you choose the best sneakers for your needs.
-
 
 ![](./client/public/images/navbar/logo.svg)
+
+Get ready to dive into the fascinating world of sneakers. From the latest trends to classic styles, we've got you covered. Whether you're an avid collector or just looking for a comfortable pair of shoes, we'll help you choose the best sneakers for your needs.
 
 
 ## Tech Stack
