@@ -49,7 +49,7 @@ Enhance product filtering for brands, categories, and sneaker types, streamlinin
 **-Order Tracking:** \
 Implement a system for users to track orders in real-time, enhancing transparency.
 
-**Secure Payments with Stripe:** \
+**-Secure Payments with Stripe:** \
 Implement secure payment processing using Stripe, ensuring a seamless and trustworthy transaction experience for users.
 
 
