@@ -32,7 +32,7 @@ app.post('/create-checkout-session', async (req, res) => {
       line_items: carts.map(cart => {
         return {
           price_data : {
-            currency: "usd",
+            currency: "inr",
             product_data: {
               name: cart.items[0].name,
               images: [cart.items[0].imageUrl]
@@ -42,9 +42,6 @@ app.post('/create-checkout-session', async (req, res) => {
           quantity: cart.items[0].quantity,
         }
       }),
-      shipping_address_collection: {
-        allowed_countries: ['US']
-      },
       client_reference_id: carts[0].userId,
       mode: 'payment',
       success_url: `https://sneakers-client.vercel.app/success/${carts[0].userId}`,
